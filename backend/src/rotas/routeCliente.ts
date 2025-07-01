@@ -6,13 +6,13 @@ function routeCliente(empresa: Empresa): Router {
 
     // Create
     router.post('/', (req, res) => {
-        const { nome, nomeSocial, cpfValor, cpfData, rgs, telefones } = req.body
-        if (!nome || !cpfValor || !cpfData || !rgs || !telefones) {
-            res.status(400).send("Nem todos os campos de Cliente foram preenchidos")
-            return
+        const { nome, nomeSocial, cpf, rgs, telefones } = req.body
+        if ( !nome || !cpf ) {
+            res.status(400).send("Nem todos os campos obrigatórios de Cliente foram preenchidos");
+            return 
         }
         try {
-            const novoCliente = empresa.postCliente(nome, nomeSocial, cpfValor, new Date(cpfData), rgs, telefones)
+            const novoCliente = empresa.postCliente(nome, nomeSocial, cpf, rgs, telefones)
             res.status(201).json(novoCliente)
         } catch (error) {
             res.status(500).send("Erro ao criar cliente")
@@ -38,24 +38,27 @@ function routeCliente(empresa: Empresa): Router {
     // Update
     router.put('/:id', (req, res) => {
         const id = parseInt(req.params.id)
-        const { nome, nomeSocial, cpfValor, cpfData, rgs, telefones } = req.body
-        const cpfDataValue = cpfData ? new Date(cpfData) : new Date() // Ou outra data padrão
+        const { nome, nomeSocial, cpf, rgs, telefones } = req.body
+
+        if (!cpf || !cpf.valor || !cpf.dataEmissao) {
+            res.status(400).send("CPF incompleto")
+            return
+        }
 
         const isOk = empresa.putCliente(
             id,
             nome,
             nomeSocial,
-            cpfValor,
-            cpfDataValue,
+            cpf,  
             rgs,
             telefones
         )
-
 
         if (!isOk) {
             res.status(404).send(`Nenhum Cliente com id ${id} encontrado`)
             return
         }
+
         res.sendStatus(204)
     })
 

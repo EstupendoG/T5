@@ -24,8 +24,9 @@ const CadastroCliente = ({tema , cliente}) => {
 
     // CADASTRO 
     // Adicionando Cliente ao banco
-    function adicionarCliente() {
+    function adicionarCliente(e) {
 
+        e.preventDefault()
         if(ddd && numeroTelefone){
             adicionarTel()
         }
@@ -80,7 +81,7 @@ const CadastroCliente = ({tema , cliente}) => {
             telefones: telefones
         }
 
-        api.put('/atualizar' , (clienteAtualizado))
+        api.put('/cliente' , (clienteAtualizado))
             .then(() => {
                 console.log('Cliente Atualizado!')
             })
@@ -88,6 +89,29 @@ const CadastroCliente = ({tema , cliente}) => {
     }
 
     
+    // RG
+    // Adicionando um RG ao Cliente
+    function adicionarRG(e) {
+        if((!valorRg || !dataRg)){
+            alert('Complete os campos anteriores antes de adicionar um RG')
+            return
+        }
+        
+        const novoRG = {
+            valor: valorRg,
+            dataEmissao: dataRg,
+        }
+        setRgs([...rgs , novoRG])
+
+        setValorRg('')
+        setDataRg('')
+    };
+    // Função para Deletar RG
+    function removerRG(index) {
+        const novaLista = rgs.filter((_ , i) => i !== index)
+        setRgs(novaLista)
+    };
+
     // TELEFONE
     // Adicionando um Telefone ao Cliente
     function adicionarTel() {
@@ -118,13 +142,13 @@ const CadastroCliente = ({tema , cliente}) => {
             
             <br />
 
-            <form onSubmit={ cliente ? atualizarCliente : adicionarCliente}>
+            <form onSubmit={(e) => cliente ? atualizarCliente : adicionarCliente(e)}>
                 {/* NOME */}
                 <div className="input-group mb-3">
                     <input type="text" className="form-control" placeholder="Nome *" aria-label="Nome *" aria-describedby="basic-addon1" value={nome} required onChange={(e) => setNome(e.target.value)} />
                 </div>
 
-                CPF
+                {/* CPF */}
                 <div className="row mb-2">
                     <div className="col-8">
                         <div className="input-group mb-3">
@@ -149,121 +173,153 @@ const CadastroCliente = ({tema , cliente}) => {
                 </div>
                 
                 {/* EMAIL */}
-                <div className="input-group mb-3">
+                {/* <div className="input-group mb-3">
                     <span className="input-group-text" id="basic-addon1" style={{ background: tema }}>@</span>
                     <input type="email" className="form-control" placeholder="E-mail" aria-label="E-mail" aria-describedby="basic-addon1" value={email} onChange={(e) => setEmail(e.target.value)} />
-                </div>
+                </div> */}
                 
 
                 {/* ENDEREÇO */}
-                <h5 className="mt-4">Endereço</h5>
+                {/* <h5 className="mt-4">Endereço</h5> */}
 
                 {/* Parte Cima */}
-                <div className="row">
+                {/* <div className="row"> */}
                     {/* Cep */}
-                    <div className="col-2">
+                    {/* <div className="col-2">
                         <div className="input-group mb-3">
                             <input type="text" className="form-control" placeholder="CEP *" aria-label="CEP *" aria-describedby="basic-addon1" value={cep} required onChange={(e) => setCep(e.target.value)}/>
                         </div>
-                    </div>
+                    </div> */}
                     {/* Estado */}
-                    <div className="col-5">
+                    {/* <div className="col-5">
                         <div className="input-group mb-3">
                             <input type="text" className="form-control" placeholder="Estado *" aria-label="Estado *" aria-describedby="basic-addon1" value={estado} required onChange={(e) => setEstado(e.target.value)} />
                         </div>
-                    </div>
+                    </div> */}
                     {/* Cidade */}
-                    <div className="col-5">
+                    {/* <div className="col-5">
                         <div className="input-group mb-3">
                             <input type="text" className="form-control" placeholder="Cidade *" aria-label="Cidade *" aria-describedby="basic-addon1" value={cidade} required onChange={(e) => setCidade(e.target.value)} />
                         </div>
                     </div>
                     
-                </div>
+                </div> */}
 
                 {/* Parte Baixo */}
-                <div className="row">
+                {/* <div className="row"> */}
                     {/* Bairro */}
-                    <div className="col-5">
+                    {/* <div className="col-5">
                         <div className="input-group mb-3">
                             <input type="text" className="form-control" placeholder="Bairro *" aria-label="Bairro *" aria-describedby="basic-addon1" value={bairro} required onChange={(e) => setBairro(e.target.value)} />
                         </div>
-                    </div>
+                    </div> */}
 
                     {/* Rua */}
-                    <div className="col-5">
+                    {/* <div className="col-5">
                         <div className="input-group mb-3">
                             <input type="text" className="form-control" placeholder="Rua *" aria-label="Rua *" aria-describedby="basic-addon1" value={rua} required onChange={(e) => setRua(e.target.value)} />
                         </div>
-                    </div>
+                    </div> */}
 
                     {/* Número do Endereço */}
-                    <div className="col-2">
+                    {/* <div className="col-2">
                         <div className="input-group mb-3">
                             <input type="text" className="form-control" placeholder="Número *" aria-label="Número *" aria-describedby="basic-addon1" value={numeroEndereco} required onChange={(e) => setNumeroEndereco(e.target.value)} />
                         </div>
                     </div>
-                </div>
+                </div> */}
                 {/* Complemento */}
-                <textarea className="form-control mb-5" id="exampleFormControlTextarea1" rows="3" placeholder="Complemento" value={complementoEndereco} onChange={(e) => setComplementoEndereco(e.target.value)}></textarea>
-{/* 
-                <div className="input-group mb-3">
-                    <button className="btn btn-outline-success w-100" type="button" style={{ background: tema }} onClick={adicionarCampoRg} > Adicionar RG </button>
-                </div>
-
-                {camposRg.map((_, index) => (
+                {/* <textarea className="form-control mb-5" id="exampleFormControlTextarea1" rows="3" placeholder="Complemento" value={complementoEndereco} onChange={(e) => setComplementoEndereco(e.target.value)}></textarea> */}
                 
-                    <div className="row" key={index}>
-                        <div className="col-8">
-                            <div className="input-group mb-3">
-                                <input type="text" className="form-control" placeholder="Número do RG" aria-label="Número do RG" aria-describedby="basic-addon1" />
-                            </div>
-                        </div>
+                {/* TELEFONES */}
+                {/* Exibição de telefones para atualização */}
+                <h5>📄 RGs</h5>
+                {rgs.length > 0 && (
+                    <div className="col">
+                        <table className="table table-hover table-borderless align-middle">
+                            <thead>
+                                <tr>
+                                <th scope="col">RG</th>
+                                <th scope="col">Data de Emissão</th>
+                                <th scope="col">Opções</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                        
+                        { rgs.map((rg , index) => (
+                            <tr key={index}>
+                                <td>{rg.valor}</td>
+                                <td>{rg.dataEmissao}</td>
+                                <td style={{width:'10px'}}>
+                                    <button className="btn btn-outline-danger" type="button" onClick={() => removerRG(index)}>
+                                        <i className="bi bi-trash-fill"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
 
-                        <div className="col-4">
-                            <div className="input-group mb-3">
-                                <input type="text" className="form-control" placeholder="Data de Emissão"
-                                onFocus={(e) => e.target.type = 'date'}
-                                onBlur={(e) => e.target.type === 'date' && !e.target.value && (e.target.type = 'text')} />
-                            </div>
+                            </tbody>
+                        </table>
+                    </div>
+                )}
+
+                <div className="row mb-2">
+                    <div className="col">
+                        <div className="input-group mb-3">
+                            <input type="text" className="form-control" placeholder="Número do RG" aria-label="Número de CPF" aria-describedby="basic-addon1" value={valorRg} onChange={(e) => setValorRg(e.target.value)}/>
                         </div>
                     </div>
 
-                ))}
+                    <div className="col-4">
+                        <div className="input-group mb-3">
+                            <input type="text" className="form-control" placeholder="Data de Emissão"
+                            value={dataRg} onChange={(e) => setDataRg(e.target.value)}
+                            onFocus={(e) => e.target.type = 'date'}
+                            onBlur={(e) => e.target.type === 'date' && !e.target.value && (e.target.type = 'text')} 
+                            />
+                        </div>
+                    </div>
+                    {/* Botão de Adicionar Rg */}
+                    <div className="col-3">
+                        <div className="input-group mb-3">
+                            <button className="btn btn-outline-success w-100" type="button" style={{ background: tema }} onClick={adicionarRG} > Adicionar RG </button>
+                        </div>
+                    </div>
+                </div>
 
-                <br /> */}
+                <br />
 
                 {/* TELEFONES */}
                 {/* Exibição de telefones para atualização */}
-                <div className="col">
-                    <h5>☎️ Telefones</h5>
-                    <table className="table table-hover table-borderless align-middle">
-                        <thead>
-                            <tr>
-                            <th scope="col">DDD</th>
-                            <th scope="col">Número</th>
-                            <th scope="col">Opções</th>
+                <h5>☎️ Telefones</h5>
+                { telefones.length > 0 && (
+                    <div className="col">
+                        <table className="table table-hover table-borderless align-middle">
+                            <thead>
+                                <tr>
+                                <th scope="col">DDD</th>
+                                <th scope="col">Número</th>
+                                <th scope="col">Opções</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                        
+                        { telefones.map((telefone , index) => (
+                            <tr key={index}>
+                                <td>({telefone.ddd})</td>
+                                <td>{telefone.numero}</td>
+                                <td style={{width:'10px'}}>
+                                    <button className="btn btn-outline-danger" type="button" onClick={() => removerTel(index)}>
+                                        <i className="bi bi-trash-fill"></i>
+                                    </button>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                    
-                    { telefones.map((telefone , index) => (
-                        <tr key={index}>
-                            <td>({telefone.ddd})</td>
-                            <td>{telefone.numero}</td>
-                            <td style={{width:'10px'}}>
-                                <button className="btn btn-outline-danger" type="button" onClick={() => removerTel(index)}>
-                                    <i className="bi bi-trash-fill"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    ))}
+                        ))}
 
-                        </tbody>
-                    </table>
-                </div>
-
-
+                            </tbody>
+                        </table>
+                    </div>
+                )}
 
                 <div className="row">
                     {/* Ddd */}

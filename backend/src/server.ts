@@ -15,18 +15,21 @@ app.use(express.json())
 
 const empresa = new Empresa()
 
+const cpf1 = new CPF("12345678901", new Date("2001-01-01"))
 const rgs1 = [new RG("MG1234567" , new Date("1999-01-01"))]
 const tels1 = [new Telefone("31", "99999-9999")]
 
+const cpf2 = new CPF("10987654321", new Date("1985-05-20"))
 const rgs2 = [new RG("SP7654321", new Date("1990-03-05"))]
 const tels2 = [new Telefone("11", "98888-8888")]
 
+const cpf3 = new CPF("11122233344", new Date("1992-12-15"))
 const rgs3 = [new RG("RJ1122334", new Date("1992-12-21"))]
 const tels3 = [new Telefone("21", "97777-7777")]
 
-empresa.postCliente("João Silva", "João", "12345678901", new Date("1990-01-01"), rgs1, tels1)
-empresa.postCliente("Maria Oliveira", "Maria", "10987654321", new Date("1985-05-20"), rgs2, tels2)
-empresa.postCliente("Carlos Pereira", "Carlos", "11122233344", new Date("1992-12-15"), rgs3, tels3)
+empresa.postCliente("João Silva", "João", cpf1, rgs1, tels1)
+empresa.postCliente("Maria Oliveira", "Maria", cpf2, rgs2, tels2)
+empresa.postCliente("Carlos Pereira", "Carlos", cpf3, rgs3, tels3)
 app.use('/cliente' , routeCliente(empresa))
 
 empresa.postProduto("Ração para gatos", 59.90)

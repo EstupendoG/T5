@@ -87,7 +87,7 @@ const ListaCliente = ({tema , seletorView}) => {
                             <div className="row">
                                 {cliente.rgs.length > 0 && (
                                     <div className="col">
-                                        <h5>📄 RG's</h5>
+                                        <h5>📄 RGs</h5>
                                         <table className="table table-hover table-borderless">
                                             <thead>
                                                 <tr>

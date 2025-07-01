@@ -25,42 +25,42 @@ export default class Empresa{
         this.consumos = []
     }
     
-    // PRODUTOS
+    // CLIENTES
     // Create
-    public postCliente(nome:string , nomeSocial:string , cpfValor:string , cpfData:Date , rgs:Array<RG>, tels:Array<Telefone>): Cliente {
-        const cpf = new CPF(cpfValor, cpfData)
-
-        const cliente = new Cliente(this.clientesId++ , nome , nomeSocial , cpf, rgs, tels)
+    public postCliente(nome: string, nomeSocial: string, cpf: CPF, rgs: Array<RG>, tels: Array<Telefone>): Cliente {
+        const cliente = new Cliente(this.clientesId++, nome, nomeSocial, cpf, rgs, tels)
         this.clientes.push(cliente)
         return cliente
-
     }
+
     // Read
-    public getCliente(): Array<Cliente>{
+    public getCliente(): Array<Cliente> {
         return this.clientes
     }
+
     // Update
-    public putCliente(id:number , nome:string , nomeSocial:string , cpfValor:string , cpfData:Date , rgs:Array<RG> , tels:Array<Telefone>): boolean {
+    public putCliente(id: number, nome: string, nomeSocial: string, cpf: CPF, rgs: Array<RG>, tels: Array<Telefone>): boolean {
         const cliente = this.clientes.find((c) => c.id === id)
-        
-        if (!cliente) {
-            return false
-        }
+
+        if (!cliente) return false
 
         nome && (cliente.setNome = nome)
         nomeSocial && (cliente.setNomeSocial = nomeSocial)
-        cpfValor && (cliente.setCpf.setValor = cpfValor)
-        cpfData && (cliente.setCpf.setDataEmissao = cpfData)
+        cpf.getValor && (cliente.setCpf.setValor = cpf.getValor)
+        cpf.getDataEmissao && (cliente.setCpf.setDataEmissao = new Date(cpf.getDataEmissao))
         rgs && (cliente.setRgs = rgs)
         tels && (cliente.setTelefones = tels)
+
         return true
     }
+
     // Delete
-    public deleteCliente(id:number): boolean {
+    public deleteCliente(id: number): boolean {
         const length = this.clientes.length
         this.clientes = this.clientes.filter((c) => c.id !== id)
         return this.clientes.length < length
     }
+
 
 
     
