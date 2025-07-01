@@ -25,8 +25,6 @@ const CadastroCliente = ({tema , cliente}) => {
     // CADASTRO 
     // Adicionando Cliente ao banco
     function adicionarCliente(e) {
-
-        e.preventDefault()
         if(ddd && numeroTelefone){
             adicionarTel()
         }
@@ -69,7 +67,8 @@ const CadastroCliente = ({tema , cliente}) => {
         }
     }, [cliente])
     // Atualizando Cliente
-    function atualizarCliente() {
+    function atualizarCliente(e) {
+        const id = cliente.id
         const clienteAtualizado = {
             nome: nome,
             nomeSocial: nomeSocial,
@@ -81,7 +80,7 @@ const CadastroCliente = ({tema , cliente}) => {
             telefones: telefones
         }
 
-        api.put('/cliente' , (clienteAtualizado))
+        api.put(`/cliente/${id}` , (clienteAtualizado))
             .then(() => {
                 console.log('Cliente Atualizado!')
             })
@@ -91,7 +90,7 @@ const CadastroCliente = ({tema , cliente}) => {
     
     // RG
     // Adicionando um RG ao Cliente
-    function adicionarRG(e) {
+    function adicionarRG() {
         if((!valorRg || !dataRg)){
             alert('Complete os campos anteriores antes de adicionar um RG')
             return
@@ -142,7 +141,7 @@ const CadastroCliente = ({tema , cliente}) => {
             
             <br />
 
-            <form onSubmit={(e) => cliente ? atualizarCliente : adicionarCliente(e)}>
+            <form onSubmit={(e) => cliente ? atualizarCliente(e) : adicionarCliente(e)}>
                 {/* NOME */}
                 <div className="input-group mb-3">
                     <input type="text" className="form-control" placeholder="Nome *" aria-label="Nome *" aria-describedby="basic-addon1" value={nome} required onChange={(e) => setNome(e.target.value)} />
