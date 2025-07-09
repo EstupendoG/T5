@@ -10,6 +10,14 @@ module.exports = function(app) {
   );
 
   app.use(
+    '/pet',
+    createProxyMiddleware({
+      target: 'http://localhost:8000',
+      changeOrigin: true,
+    })
+  );
+
+  app.use(
     '/produto',
     createProxyMiddleware({
       target: 'http://localhost:8000',

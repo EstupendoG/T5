@@ -24,7 +24,7 @@ const CadastroCliente = ({tema , cliente}) => {
 
     // CADASTRO 
     // Adicionando Cliente ao banco
-    function adicionarCliente(e) {
+    function adicionarCliente() {
         if(ddd && numeroTelefone){
             adicionarTel()
         }

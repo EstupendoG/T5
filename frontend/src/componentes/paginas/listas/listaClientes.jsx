@@ -133,27 +133,36 @@ const ListaCliente = ({tema , seletorView}) => {
 
                             </div>
 
-                            {/* <hr />
+                            <hr />
                             <br />
 
                             <h5>🐱 Pets</h5>
-                            <table className="table table-hover table-striped table-borderless">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">ID</th>
-                                        <th scope="col">Nome</th>
-                                        <th scope="col">Tipo</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td scope="row">1</td>
-                                        <td>Pimenta</td>
-                                        <td>Gato</td>
-                                        <td>Siamês</td>
-                                    </tr>
-                                </tbody>
-                            </table> */}
+                            {cliente.pets.length > 0 ? (
+                                <table className="table table-hover table-striped table-borderless">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Nome</th>
+                                            <th scope="col">Tipo</th>
+                                            <th scope="col">Raça</th>
+                                            <th scope="col">Gênero</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        { cliente.pets.map((pet, index) => (
+                                            <tr key={index}>
+                                                <td scope="row">{pet.id}</td>
+                                                <td>{pet.nome}</td>
+                                                <td>{pet.tipo}</td>
+                                                <td>{pet.raca}</td>
+                                                <td>{pet.genero}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            ) : (
+                                <h5> Esse cliente não possui nenhum Pet! </h5>
+                            )}
 
                             <br />
 

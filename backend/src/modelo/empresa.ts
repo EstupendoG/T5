@@ -17,11 +17,11 @@ export default class Empresa{
     private consumos: Array<Consumo>
     constructor(){
         this.clientes = []
-        this.clientesId = 0
+        this.clientesId = 1
         this.produtos = []
-        this.produtosId = 0
+        this.produtosId = 1
         this.servicos = []
-        this.servicosId = 0
+        this.servicosId = 1
         this.consumos = []
     }
     

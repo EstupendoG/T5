@@ -1,9 +1,11 @@
 import CPF from "./cpf"
+import Empresa from "./empresa"
 import Pet from "./pet"
 import Produto from "./produto"
 import RG from "./rg"
 import Servico from "./servico"
 import Telefone from "./telefone"
+import gerarPetsId from "./gerarPetId"
 
 export default class Cliente {
     public id: number
@@ -16,6 +18,7 @@ export default class Cliente {
     private produtosConsumidos: Array<Produto>
     private servicosConsumidos: Array<Servico>
     private pets: Array<Pet>
+    private petsId: number
     constructor(id:number , nome: string, nomeSocial: string, cpf: CPF , rgs: Array<RG> , telefones: Array<Telefone>) {
         this.id = id
         this.nome = nome
@@ -27,9 +30,9 @@ export default class Cliente {
         this.produtosConsumidos = []
         this.servicosConsumidos = []
         this.pets = []
+        this.petsId = 1
     }
 
-    
     public set setNome(nome: string) {
         this.nome = nome
     }
@@ -62,26 +65,41 @@ export default class Cliente {
         this.servicosConsumidos = servicos
     }
 
-    public adicionarPet(pet: Pet){
+
+
+    // PET
+    public postPet(nome:string , tipo:string , raca:string , genero:string): Pet{
+        const pet = new Pet(gerarPetsId() , nome , tipo , raca , genero)
         this.pets.push(pet)
+        return pet
     }
-
-    public removerPet(pet:Pet){
-        let i = this.pets.indexOf(pet)
-        this.pets.splice(i,1)
+    // Read
+    public getPet(): Array<Pet>{
+        return this.pets
     }
+    // Update
+    public putPet(
+        id: number,
+        nome:string,
+        tipo:string, 
+        raca:string, 
+        genero:string
+    ): boolean {
+        const pet = this.pets.find((p) => p.getId === id)
 
-    public atualizarPet(
-        pet: Pet,
-        nome:string|undefined,
-        tipo:string|undefined, 
-        raca:string|undefined, 
-        genero:string|undefined
-    ){
+        if(!pet) return false
+
         nome   && (pet.setNome = nome)
         tipo   && (pet.setTipo = tipo)
         raca   && (pet.setRaca = raca)
         genero && (pet.setGenero = genero)
+        return true
+    }
+    // Delete
+    public deletePet(id:number): boolean{
+        const length = this.pets.length
+        this.pets = this.pets.filter((p) => p.getId !== id)
+        return this.pets.length < length
     }
 
 }

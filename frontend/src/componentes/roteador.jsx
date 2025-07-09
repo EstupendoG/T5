@@ -21,12 +21,14 @@ export default function Roteador() {
     const [cliente , setCliente] = useState(null)
     const [produto , setProduto] = useState(null)
     const [servico , setServico] = useState(null)
+    const [pet, setPet] = useState(null)
     
-    const selecionarView = (valor, e, cliente = null , produto = null , servico = null) => {
+    const selecionarView = (valor, e, cliente = null , produto = null , servico = null, pet = null) => {
         e.preventDefault()
         setCliente(cliente)
         setProduto(produto)
         setServico(servico)
+        setPet(pet)
         setTela(valor)
     }
     
@@ -119,7 +121,7 @@ export default function Roteador() {
                 <>
                     <BarraNavegacao seletorView={selecionarView} tema="#e3f2fd" botoes={['Listagem', 'Cadastros']} />
                     <div className="container-sm mt-5">
-                        <CadastroPet tema="#e3f2fd"/>
+                        <CadastroPet tema="#e3f2fd" pet={pet}/>
                     </div>
                 </>
             )
